@@ -11,7 +11,7 @@ import (
 	"github.com/Dreamacro/clash/constant"
 )
 
-func Run() {
+func Run(userName string, password string, server string, port int) (error error) {
 	in := make(chan constant.ConnContext, 100)
 	defer close(in)
 
@@ -22,11 +22,13 @@ func Run() {
 	defer l.Close()
 	println("listen at:", l.Address())
 	socksOption := &outbound.Socks5Option{
-		Name:     "test",
-		Server:   "proxy.ipidea.io",
-		Port:     2333,
-		UserName: "uat_team-zone-custom",
-		Password: "314f71aaa600567a315b405626102ed4",
+		Name: "ipProxy",
+		//Server:   "proxy.ipidea.io",
+		Server: server,
+		//Port:     2333,
+		Port:     port,
+		UserName: userName,
+		Password: password,
 	}
 	direct := outbound.NewSocks5(*socksOption)
 	//direct := outbound.NewDirect()
@@ -45,6 +47,7 @@ func Run() {
 			relay(remote, conn.Conn())
 		}()
 	}
+	return err
 }
 
 type simpleAuth struct {
