@@ -22,11 +22,11 @@ func Run() {
 	defer l.Close()
 	println("listen at:", l.Address())
 	socksOption := &outbound.Socks5Option{
-		Name:   "test",
-		Server: "170.106.110.127",
-		Port:   10130,
-		//UserName: "uat_team-zone-custom",
-		//Password: "314f71aaa600567a315b405626102ed4",
+		Name:     "test",
+		Server:   "proxy.ipidea.io",
+		Port:     2333,
+		UserName: "uat_team-zone-custom",
+		Password: "314f71aaa600567a315b405626102ed4",
 	}
 	direct := outbound.NewSocks5(*socksOption)
 	//direct := outbound.NewDirect()
